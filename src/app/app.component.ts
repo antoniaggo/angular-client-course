@@ -9,7 +9,7 @@ import { Course } from './model/course';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+ 
   courses: Course[] = COURSES;
 
 
