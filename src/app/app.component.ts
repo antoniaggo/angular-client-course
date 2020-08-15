@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { COURSES } from '../db-data';
 import { Course } from './model/course';
+import { CoursesService } from './services/courses.service';
 
 
 @Component({
@@ -8,9 +9,21 @@ import { Course } from './model/course';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
  
-  courses: Course[] = COURSES;
+  // courses: Course[] = COURSES;
 
+  courses: Course[];
+
+  constructor(public coursesService: CoursesService){
+
+  }
+
+  ngOnInit() {
+    this.coursesService.loadCourses()
+    .subscribe (courses => {
+      this.courses = courses;
+    })
+  }
 
 }
