@@ -1,0 +1,25 @@
+<h1 style="text-align: center">Log in && discover our app</h1>
+<div class="login">
+  <h2 class="login-header">Log in</h2>
+  <form [formGroup]="authForm" class="login-container" (ngSubmit)="signIn()">
+    <input type="email" placeholder="Email" formControlName="email" />
+    <ng-container
+      *ngIf="!formControls.email.valid && formControls.email.touched"
+    >
+      <p *ngIf="formControls.email.errors.required">Email is required</p>
+      <p *ngIf="formControls.email.errors.email">This field must be an email</p>
+    </ng-container>
+
+    <input type="password" placeholder="Password" formControlName="password" />
+    <ng-container
+      *ngIf="!formControls.password.valid && formControls.password.touched"
+    >
+      <p *ngIf="formControls.password.errors.required">
+        Password is required
+      </p>
+    </ng-container>
+    <p>
+      <input type="submit" value="Log in" [disabled]="authForm.invalid" />
+    </p>
+  </form>
+</div>

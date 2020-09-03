@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { COURSES } from '../db-data';
-import { Course } from './model/course';
-import { CoursesService } from './services/courses.service';
+import { Component} from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -9,21 +9,17 @@ import { CoursesService } from './services/courses.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
- 
-  // courses: Course[] = COURSES;
+export class AppComponent{
 
-  courses: Course[];
+  constructor(public authService: AuthService, private router: Router){}
 
-  constructor(public coursesService: CoursesService){
-
+  logout(){
+    this.authService.logout();
+    this.router.navigateByUrl('/courses');
+  }
+  login(){
+    this.router.navigateByUrl('/auth');
   }
 
-  ngOnInit() {
-    this.coursesService.loadCourses()
-    .subscribe (courses => {
-      this.courses = courses;
-    })
-  }
 
 }
