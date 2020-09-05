@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Token } from '../model/token';
 
 @Component({
   selector: 'app-auth',
@@ -27,8 +28,13 @@ export class AuthComponent implements OnInit {
     if (this.authForm.invalid){
       return;
     }
-    this.authService.signIn(this.authForm.value);
-    this.router.navigateByUrl('/admin');
+    this.authService.signIn(this.authForm.value)
+    .subscribe((token: Token) => {
+      console.log(this.authForm.value);
+      localStorage.setItem('ACCESS_TOKEN', token.token);
+      this.router.navigateByUrl('/admin');
+    });
+   
   }
 
 }
